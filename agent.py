@@ -127,3 +127,32 @@ def gemmaApiCall(prompt: list):
 
 # plan = gemmaApiCall(allFolderFiles)
 # print(plan)
+
+# Moving files
+
+try:
+    result = json.loads(apiResult)
+    # print(result)
+
+    if result:
+        for key in result:
+            if key==result[key]:
+                pass
+            elif "[Empty Folder]" in key:
+                pass
+            else:
+                # os.rename(key,result[key]) it wont create folder itself ...
+                initalPath = os.path.join(folderUrl,key)
+                destPath = os.path.join(folderUrl,result[key])
+
+                destFolder = os.path.dirname(destPath)
+
+                os.makedirs(destFolder,exist_ok=True)
+                os.rename(initalPath,destPath)
+                print(f"Moved: {key} -> {result[key]}")
+
+
+
+except Exception as e:
+    print("Error: ",e)
+

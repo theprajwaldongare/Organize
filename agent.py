@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from openai import OpenAI
-from pydantic import BaseModel,Field
 import os
 import json
 import re
@@ -14,6 +13,7 @@ client = OpenAI(
     max_retries=5
 )
 
+#C:\\Users\\
 folderUrl = "FolderToOrganize"
 
 def readFolderContent(folderUrl:str,relativePath: str = "",complete = []):
@@ -131,6 +131,10 @@ def gemmaApiCall(prompt: list):
 # Moving files
 
 try:
+    userInp = input("Do you want to continue the plan?(YES/NO) it changes your folder structure: ")
+    if userInp.lower() != "yes":
+        exit()
+    
     result = json.loads(apiResult)
     # print(result)
 

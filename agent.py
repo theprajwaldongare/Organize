@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from datetime import datetime
 from openai import OpenAI
 import os
 import json
@@ -136,6 +137,30 @@ try:
         exit()
     
     result = json.loads(apiResult)
+
+    savedHistory = "history.json"
+
+    if os.path.exists(savedHistory):
+        with open(savedHistory,"r") as f:
+            jsonDataHistory = json.load(f)
+    else:
+        jsonDataHistory={}
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %I:%M %p")
+
+    session_data = {
+        "session_time": timestamp,
+        "moves": result
+    }
+    
+    if folderUrl not in jsonDataHistory:
+        jsonDataHistory[folderUrl]=[session_data]
+    else:
+        # append in already changed
+        jsonDataHistory[folderUrl].append(session_data)
+    
+    with open(savedHistory,"w") as f:
+        json.dump(jsonDataHistory,f,indent=4)
     # print(result)
 
     if result:

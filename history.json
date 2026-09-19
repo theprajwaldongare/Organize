@@ -1,0 +1,23 @@
+{
+    "FolderToOrganize": [
+        {
+            "session_time": "2026-09-19 02:20 PM",
+            "moves": {
+                "cat.avif": "Images/Animals/cat.avif",
+                "dog.avif": "Images/Animals/dog.avif",
+                "lectureNotes.txt": "Lectures/lectureNotes.txt",
+                "lectureScreenshot.png": "Lectures/lectureScreenshot.png",
+                "movie.mp4": "Videos/movie.mp4",
+                "nature.jpg": "Images/Nature/nature.jpg",
+                "notes.txt": "Documents/notes.txt",
+                "result.pdf": "Documents/result.pdf",
+                "river.jpeg": "Images/Nature/river.jpeg",
+                "song1.mp3": "Music/song1.mp3",
+                "song2.mp3": "Music/song2.mp3",
+                "this is real music.mp3": "Music/this is real music.mp3",
+                "Wallpapers/City/paris.jpeg": "Wallpapers/City/paris.jpeg",
+                "Wallpapers/Space [Empty Folder]": "Wallpapers/Space [Empty Folder]"
+            }
+        }
+    ]
+}

@@ -73,11 +73,58 @@ Output Sample:
 
 
 """
+print("Welcome to the AI Folder Organizer!")
+mode = input("Do you want to 'organize' the folder or 'undo' the last move? (organize/undo): ").strip().lower()
+
+savedHistory = "history.json"
+
+if mode=="undo" or mode=="u":
+    if os.path.exists(savedHistory):
+        with open(savedHistory,"r") as f:
+            history = json.load(f)
+
+        if folderUrl in history and len(history[folderUrl])>0:
+            lastSession = history[folderUrl].pop()
+            print(f"Undoing organization from: {lastSession['session_time']}")
+
+            for originalPath,newPath in lastSession['moves'].items():
+                if originalPath==newPath or "[Empty Folder]" in originalPath:
+                    continue
+                
+                current_location = os.path.join(folderUrl, newPath)
+                reverted_location = os.path.join(folderUrl, originalPath)
+
+                if os.path.exists(current_location):
+                    os.makedirs(os.path.dirname(reverted_location), exist_ok=True)
+                    os.rename(current_location, reverted_location)
+                    print(f"Moved back: {newPath} -> {originalPath}")
+
+                    folderLeft = os.path.dirname(current_location)
+                    try:
+                        os.removedirs(folderLeft)
+                        print(f"Removed empty folder: {folderLeft}")
+                    except OSError:
+                        pass
+                    
+
+            with open(savedHistory, "w") as f:
+                json.dump(history, f, indent=4)
+            
+            print("Undo complete")
+
+        else:
+            print("No history found to undo for this folder!")
+        
+    else:
+        print("No history file exists yet!")
+    
+    exit()
 
 
 allFolderFiles = readFolderContent(folderUrl)
+
 print("\n")
-print("INPUT: ")
+print("INITIAL: ")
 print(allFolderFiles)
 
 def apiCall(prompt:list[str]):
@@ -97,7 +144,7 @@ def apiCall(prompt:list[str]):
 # print(allFolderFiles)
 
 print("\n")
-print("OUTPUT: ")
+print("FINAL: ")
 
 apiResult = apiCall(str(allFolderFiles))
 print(apiResult)
@@ -138,7 +185,7 @@ try:
     
     result = json.loads(apiResult)
 
-    savedHistory = "history.json"
+    
 
     if os.path.exists(savedHistory):
         with open(savedHistory,"r") as f:

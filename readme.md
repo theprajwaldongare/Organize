@@ -13,10 +13,10 @@ Instead of manually sorting through hundreds of downloads or project files, this
 
 ## Setup
 1. Clone the repository
-```
-git clone https://github.com/theprajwaldongare/Organize.git
-cd Organize
-```
+    ```
+    git clone https://github.com/theprajwaldongare/Organize.git
+    cd Organize
+    ```
 2. Install dependencies(venv): ```pip install openai python-dotenv```
 
 3. Add your API key
